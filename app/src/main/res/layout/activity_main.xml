@@ -10,5 +10,12 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
+    <ImageView
+        android:scaleType="centerCrop"
+        android:layout_below="@id/toolbar"
+        android:src="@drawable/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <include layout="@layout/empty_drops"/>
 </RelativeLayout>
