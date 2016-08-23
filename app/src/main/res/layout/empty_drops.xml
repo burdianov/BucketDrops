@@ -13,6 +13,7 @@
         android:layout_height="192dp"/>
 
     <Button
+        android:background="@drawable/bg_btn_add_it"
         android:textColor="@color/btn_add_color"
         android:fontFamily="sans-serif-thin"
         android:layout_margin="24dp"
