@@ -23,6 +23,7 @@
         android:layout_height="12dp"/>
 
     <EditText
+        android:inputType="textVisiblePassword"
         android:id="@+id/et_drop"
         android:padding="16dp"
         android:hint="@string/hint_et_drop"
