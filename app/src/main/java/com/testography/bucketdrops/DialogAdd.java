@@ -21,9 +21,20 @@ public class DialogAdd extends DialogFragment {
     private View.OnClickListener mBtnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            int id = view.getId();
+            switch (id) {
+                case R.id.btn_add_it:
+                    addAction();
+                    break;
+            }
             dismiss();
         }
     };
+
+    private void addAction() {
+        String what = mInputWhat.getText().toString();
+        long now = System.currentTimeMillis();
+    }
 
     public DialogAdd() {
     }
@@ -44,5 +55,6 @@ public class DialogAdd extends DialogFragment {
         mBtnAdd = (Button) view.findViewById(R.id.btn_add);
 
         mBtnClose.setOnClickListener(mBtnClickListener);
+        mBtnAdd.setOnClickListener(mBtnClickListener);
     }
 }
