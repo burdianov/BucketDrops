@@ -11,8 +11,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.testography.bucketdrops.adapters.AdapterDrops;
+import com.testography.bucketdrops.beans.Drop;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -40,6 +42,8 @@ public class ActivityMain extends AppCompatActivity {
 
         mRealm = Realm.getDefaultInstance();
 
+        RealmResults<Drop> results = mRealm.where(Drop.class).findAllAsync();
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         mBtnAdd = (Button) findViewById(R.id.btn_add);
@@ -47,7 +51,7 @@ public class ActivityMain extends AppCompatActivity {
 
         mRecycler = (RecyclerView) findViewById(R.id.rv_drops);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mRecycler.setAdapter(new AdapterDrops(this));
+        mRecycler.setAdapter(new AdapterDrops(this, results));
 
         setSupportActionBar(mToolbar);
 

@@ -8,26 +8,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.testography.bucketdrops.R;
+import com.testography.bucketdrops.beans.Drop;
 
-import java.util.ArrayList;
+import io.realm.RealmResults;
 
 public class AdapterDrops extends RecyclerView.Adapter<AdapterDrops.DropHolder> {
 
     private LayoutInflater mInflater;
-    private ArrayList<String> mItems = new ArrayList<>();
+    private RealmResults<Drop> mResults;
 
-    public AdapterDrops(Context context) {
+    public AdapterDrops(Context context, RealmResults<Drop> results) {
         mInflater = LayoutInflater.from(context);
-
-        mItems = generateValues();
-    }
-
-    public static ArrayList<String> generateValues() {
-        ArrayList<String> dummyValues = new ArrayList<>();
-        for (int i = 1; i < 101; i++) {
-            dummyValues.add("Item " + i);
-        }
-        return dummyValues;
+        mResults = results;
     }
 
     @Override
@@ -39,12 +31,13 @@ public class AdapterDrops extends RecyclerView.Adapter<AdapterDrops.DropHolder> 
 
     @Override
     public void onBindViewHolder(DropHolder holder, int position) {
-        holder.mTextWhat.setText(mItems.get(position));
+        Drop drop = mResults.get(position);
+        holder.mTextWhat.setText(drop.getWhat());
     }
 
     @Override
     public int getItemCount() {
-        return 100;
+        return mResults.size();
     }
 
     public static class DropHolder extends RecyclerView.ViewHolder {
