@@ -14,6 +14,7 @@ import com.testography.bucketdrops.adapters.AdapterDrops;
 import com.testography.bucketdrops.beans.Drop;
 
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
 public class ActivityMain extends AppCompatActivity {
@@ -22,11 +23,20 @@ public class ActivityMain extends AppCompatActivity {
     Button mBtnAdd;
     RecyclerView mRecycler;
     Realm mRealm;
+    RealmResults<Drop> mResults;
+    AdapterDrops mAdapter;
 
     private View.OnClickListener mBtnAddListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             showDialogAdd();
+        }
+    };
+
+    private RealmChangeListener mChangeListener = new RealmChangeListener() {
+        @Override
+        public void onChange(Object element) {
+            mAdapter.update(mResults);
         }
     };
 
@@ -42,20 +52,33 @@ public class ActivityMain extends AppCompatActivity {
 
         mRealm = Realm.getDefaultInstance();
 
-        RealmResults<Drop> results = mRealm.where(Drop.class).findAllAsync();
+        mResults = mRealm.where(Drop.class).findAllAsync();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         mBtnAdd = (Button) findViewById(R.id.btn_add);
         mBtnAdd.setOnClickListener(mBtnAddListener);
+        mAdapter = new AdapterDrops(this, mResults);
 
         mRecycler = (RecyclerView) findViewById(R.id.rv_drops);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mRecycler.setAdapter(new AdapterDrops(this, results));
+        mRecycler.setAdapter(mAdapter);
 
         setSupportActionBar(mToolbar);
 
         initBackgroundImage();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mResults.addChangeListener(mChangeListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mResults.removeChangeListener(mChangeListener);
     }
 
     private void initBackgroundImage() {
