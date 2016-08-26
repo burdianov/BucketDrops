@@ -12,11 +12,14 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.testography.bucketdrops.adapters.AdapterDrops;
 
+import io.realm.Realm;
+
 public class ActivityMain extends AppCompatActivity {
 
     Toolbar mToolbar;
     Button mBtnAdd;
     RecyclerView mRecycler;
+    Realm mRealm;
 
     private View.OnClickListener mBtnAddListener = new View.OnClickListener() {
         @Override
@@ -34,6 +37,8 @@ public class ActivityMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mRealm = Realm.getDefaultInstance();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
