@@ -24,6 +24,7 @@ public class ActivityMain extends AppCompatActivity {
     BucketRecyclerView mRecycler;
     Realm mRealm;
     RealmResults<Drop> mResults;
+    View mEmptyView;
     AdapterDrops mAdapter;
 
     private View.OnClickListener mBtnAddListener = new View.OnClickListener() {
@@ -55,12 +56,15 @@ public class ActivityMain extends AppCompatActivity {
         mResults = mRealm.where(Drop.class).findAllAsync();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mEmptyView = findViewById(R.id.empty_drops);
 
         mBtnAdd = (Button) findViewById(R.id.btn_add);
         mBtnAdd.setOnClickListener(mBtnAddListener);
         mAdapter = new AdapterDrops(this, mResults);
 
         mRecycler = (BucketRecyclerView) findViewById(R.id.rv_drops);
+        mRecycler.hideIfEmpty(mToolbar);
+        mRecycler.showIfEmpty(mEmptyView);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
         mRecycler.setAdapter(mAdapter);
 
