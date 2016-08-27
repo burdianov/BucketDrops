@@ -3,7 +3,6 @@ package com.testography.bucketdrops;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +11,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.testography.bucketdrops.adapters.AdapterDrops;
 import com.testography.bucketdrops.beans.Drop;
+import com.testography.bucketdrops.widgets.BucketRecyclerView;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
@@ -21,7 +21,7 @@ public class ActivityMain extends AppCompatActivity {
 
     Toolbar mToolbar;
     Button mBtnAdd;
-    RecyclerView mRecycler;
+    BucketRecyclerView mRecycler;
     Realm mRealm;
     RealmResults<Drop> mResults;
     AdapterDrops mAdapter;
@@ -60,7 +60,7 @@ public class ActivityMain extends AppCompatActivity {
         mBtnAdd.setOnClickListener(mBtnAddListener);
         mAdapter = new AdapterDrops(this, mResults);
 
-        mRecycler = (RecyclerView) findViewById(R.id.rv_drops);
+        mRecycler = (BucketRecyclerView) findViewById(R.id.rv_drops);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
         mRecycler.setAdapter(mAdapter);
 
