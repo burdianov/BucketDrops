@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.testography.bucketdrops.adapters.AdapterDrops;
+import com.testography.bucketdrops.adapters.Divider;
 import com.testography.bucketdrops.beans.Drop;
 import com.testography.bucketdrops.widgets.BucketRecyclerView;
 
@@ -63,6 +64,7 @@ public class ActivityMain extends AppCompatActivity {
         mAdapter = new AdapterDrops(this, mResults);
 
         mRecycler = (BucketRecyclerView) findViewById(R.id.rv_drops);
+        mRecycler.addItemDecoration(new Divider(this, LinearLayoutManager.VERTICAL));
         mRecycler.hideIfEmpty(mToolbar);
         mRecycler.showIfEmpty(mEmptyView);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
