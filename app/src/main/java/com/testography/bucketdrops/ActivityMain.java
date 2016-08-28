@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.testography.bucketdrops.adapters.AdapterDrops;
+import com.testography.bucketdrops.adapters.AddListener;
 import com.testography.bucketdrops.adapters.Divider;
 import com.testography.bucketdrops.beans.Drop;
 import com.testography.bucketdrops.widgets.BucketRecyclerView;
@@ -27,6 +28,13 @@ public class ActivityMain extends AppCompatActivity {
     RealmResults<Drop> mResults;
     View mEmptyView;
     AdapterDrops mAdapter;
+
+    private AddListener mAddListener = new AddListener() {
+        @Override
+        public void add() {
+            showDialogAdd();
+        }
+    };
 
     private View.OnClickListener mBtnAddListener = new View.OnClickListener() {
         @Override
@@ -61,7 +69,7 @@ public class ActivityMain extends AppCompatActivity {
 
         mBtnAdd = (Button) findViewById(R.id.btn_add);
         mBtnAdd.setOnClickListener(mBtnAddListener);
-        mAdapter = new AdapterDrops(this, mResults);
+        mAdapter = new AdapterDrops(this, mResults, mAddListener);
 
         mRecycler = (BucketRecyclerView) findViewById(R.id.rv_drops);
         mRecycler.addItemDecoration(new Divider(this, LinearLayoutManager.VERTICAL));
