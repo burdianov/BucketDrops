@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.testography.bucketdrops.adapters.AdapterDrops;
 import com.testography.bucketdrops.adapters.AddListener;
 import com.testography.bucketdrops.adapters.Divider;
+import com.testography.bucketdrops.adapters.SimpleTouchCallback;
 import com.testography.bucketdrops.beans.Drop;
 import com.testography.bucketdrops.widgets.BucketRecyclerView;
 
@@ -77,6 +79,9 @@ public class ActivityMain extends AppCompatActivity {
         mRecycler.showIfEmpty(mEmptyView);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
         mRecycler.setAdapter(mAdapter);
+        SimpleTouchCallback callback = new SimpleTouchCallback(mAdapter);
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(mRecycler);
 
         setSupportActionBar(mToolbar);
 
